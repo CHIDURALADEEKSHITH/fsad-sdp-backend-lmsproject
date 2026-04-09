@@ -48,5 +48,5 @@ public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
     @Modifying
     @Transactional
     @Query("DELETE FROM Teacher t WHERE t.email=?1")
-    int deleteTeacherByEmail(String email);
+    int deleteTeacherByEmail(String email);//
 }

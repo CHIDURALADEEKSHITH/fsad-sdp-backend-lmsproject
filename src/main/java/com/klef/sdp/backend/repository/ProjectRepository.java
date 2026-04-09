@@ -18,7 +18,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     List<Project> getProjectsBySubject(Subject subject);
 
     // Find projects by teacher
-    List<Project> findByTeacher(Teacher teacher);
+    List<Project> findByTeacher(Teacher teacher); //
 
     @Query("SELECT p FROM Project p WHERE p.teacher=?1")
     List<Project> getProjectsByTeacher(Teacher teacher);

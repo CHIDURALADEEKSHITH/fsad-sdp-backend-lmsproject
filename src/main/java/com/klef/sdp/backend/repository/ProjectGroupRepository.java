@@ -25,7 +25,7 @@ public interface ProjectGroupRepository extends JpaRepository<ProjectGroup, Inte
 
     // Count members in a group
     @Query("SELECT COUNT(s) FROM Student s WHERE s.group=?1")
-    long countMembersByGroup(ProjectGroup group);
+    long countMembersByGroup(ProjectGroup group); //
 
     // Check if student is already in a group for a project
     @Query("SELECT COUNT(s) FROM Student s WHERE s.group IN (SELECT g FROM ProjectGroup g WHERE g.project=?1) AND s.id=?2")

@@ -17,7 +17,7 @@ public class ProjectGroup {
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private int id;
 	 @Column(length=50, nullable=false)
-	 private String groupName;
+	 private String groupName;//
 	 @Column(nullable=false)
 	 private int maxMembers;
 	 

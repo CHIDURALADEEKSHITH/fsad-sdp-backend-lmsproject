@@ -22,7 +22,7 @@ public class Student {
 private int id;
 	
 	@Column(length=100,nullable = false)
-private String name;
+private String name;//
 
 	@Column(length=10,nullable = false)
 private String gender;

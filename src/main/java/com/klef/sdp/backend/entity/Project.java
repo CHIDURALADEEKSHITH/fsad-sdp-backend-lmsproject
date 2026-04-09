@@ -35,7 +35,7 @@ public class Project {
 
 	    @ManyToOne
 	    @JoinColumn(name="teacher_id", nullable=false)
-	    private Teacher teacher;
+	    private Teacher teacher; //
 
 		public int getId() {
 			return id;

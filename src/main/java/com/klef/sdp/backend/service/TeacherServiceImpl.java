@@ -75,7 +75,7 @@ private StudentRepository studentRepository;
 	    }
 
 	    @Override
-	    public List<Project> viewProjectsBySubject(String coursecode) {
+	    public List<Project> viewProjectsBySubject(String coursecode) { // can view projects
 	        Subject subject = subjectRepository.findById(coursecode).orElse(null);
 	        return projectRepository.findBySubject(subject);
 	    }
@@ -111,7 +111,7 @@ private StudentRepository studentRepository;
 
 	    @Override
 	    public boolean deleteGroup(int groupId) {
-	        if(projectGroupRepository.existsById(groupId)) {
+	        if(projectGroupRepository.existsById(groupId)) { //
 	            projectGroupRepository.deleteById(groupId);
 	            return true;
 	          }
