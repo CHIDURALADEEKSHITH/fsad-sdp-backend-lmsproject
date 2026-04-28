@@ -14,20 +14,20 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface ProjectGroupRepository extends JpaRepository<ProjectGroup, Integer> {
 
-    // Find groups by project
+ 
     List<ProjectGroup> findByProject(Project project);
 
     @Query("SELECT g FROM ProjectGroup g WHERE g.project=?1")
     List<ProjectGroup> getGroupsByProject(Project project);
 
-    // Find group by leader
     ProjectGroup findByLeader(Student leader);
 
-    // Count members in a group
     @Query("SELECT COUNT(s) FROM Student s WHERE s.group=?1")
-    long countMembersByGroup(ProjectGroup group); //
+    long countMembersByGroup(ProjectGroup group); 
 
-    // Check if student is already in a group for a project
+    @Query("SELECT COUNT(m) FROM ProjectGroup g JOIN g.members m WHERE g=?1")
+    long countMembersByGroupNew(ProjectGroup group); 
+
     @Query("SELECT COUNT(s) FROM Student s WHERE s.group IN (SELECT g FROM ProjectGroup g WHERE g.project=?1) AND s.id=?2")
     long checkStudentInProject(Project project, int studentId);
     
@@ -38,4 +38,10 @@ public interface ProjectGroupRepository extends JpaRepository<ProjectGroup, Inte
     
     @Query("SELECT g FROM ProjectGroup g WHERE g.project.id=?1")
     List<ProjectGroup> findByProjectId(int projectId);
+    
+    @Query("SELECT g FROM ProjectGroup g JOIN g.members m WHERE m.id=?1")
+    List<ProjectGroup> findByStudentId(int studentId);
+    
+    @Query("SELECT COUNT(g) FROM ProjectGroup g JOIN g.members m WHERE m.id=?1 AND g.project.id=?2")
+    long checkStudentInProject(int studentId, int projectId);
 }

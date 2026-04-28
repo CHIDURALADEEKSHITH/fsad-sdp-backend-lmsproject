@@ -1,10 +1,13 @@
 package com.klef.sdp.backend.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.data.annotation.CreatedBy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +15,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 @Entity
@@ -51,9 +56,15 @@ private LocalDateTime registeredAt;
 
 
 @JsonIgnore
+@JsonIgnoreProperties({"members", "project", "leader"})
 @ManyToOne
 @JoinColumn(name="group_id")
 private ProjectGroup group;
+
+@JsonIgnore
+@JsonIgnoreProperties({"members", "project", "leader"})
+@ManyToMany(mappedBy = "members")
+private Set<ProjectGroup> groups = new HashSet<>();
 
 public int getId() {
 	return id;
@@ -141,6 +152,24 @@ public ProjectGroup getGroup() {
 
 public void setGroup(ProjectGroup group) {
 	this.group = group;
+}
+
+public Set<ProjectGroup> getGroups() {
+	return groups;
+}
+
+public void setGroups(Set<ProjectGroup> groups) {
+	this.groups = groups;
+}
+
+public void addGroup(ProjectGroup projectGroup) {
+    this.groups.add(projectGroup);
+    projectGroup.getMembers().add(this);
+}
+
+public void removeGroup(ProjectGroup projectGroup) {
+    this.groups.remove(projectGroup);
+    projectGroup.getMembers().remove(this);
 }
 
 @Override

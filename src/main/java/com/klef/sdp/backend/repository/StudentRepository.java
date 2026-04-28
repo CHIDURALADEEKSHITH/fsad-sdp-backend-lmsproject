@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.klef.sdp.backend.entity.ProjectGroup;
@@ -57,4 +58,10 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     
     @Query("SELECT s FROM Student s WHERE s.group.id=?1")
     List<Student> getStudentsByGroupId(int groupId);
+    
+    @Query("SELECT s FROM Student s JOIN s.groups g WHERE g.id=?1")
+    List<Student> getStudentsByGroupIdNew(int groupId);
+   
+    @Query("SELECT COUNT(s) FROM Student s WHERE s.group.project.id = :projectId AND s.id = :studentId")
+    int checkStudentInGroupForProject(@Param("studentId") int studentId, @Param("projectId") int projectId);
 }

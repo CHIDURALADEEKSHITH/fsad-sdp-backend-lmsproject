@@ -11,19 +11,17 @@ import com.klef.sdp.backend.entity.Teacher;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
-    // Find projects by subject
     List<Project> findBySubject(Subject subject);
 
     @Query("SELECT p FROM Project p WHERE p.subject=?1")
     List<Project> getProjectsBySubject(Subject subject);
 
-    // Find projects by teacher
+   
     List<Project> findByTeacher(Teacher teacher); //
 
     @Query("SELECT p FROM Project p WHERE p.teacher=?1")
     List<Project> getProjectsByTeacher(Teacher teacher);
 
-    // Count projects by teacher
     long countByTeacher(Teacher teacher);
 
     @Query("SELECT COUNT(p) FROM Project p")

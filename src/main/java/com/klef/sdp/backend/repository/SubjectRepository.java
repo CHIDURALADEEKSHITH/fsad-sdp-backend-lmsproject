@@ -19,7 +19,7 @@ public interface SubjectRepository extends JpaRepository<Subject, String>
 	    List<Subject> getSubjectsByDepartment(String department);
 	 
 	    @Query("SELECT COUNT(s) FROM Subject s")
-	    long totalSubjects(); //
+	    long totalSubjects(); 
 	  
 	    @Modifying
 	    @Transactional

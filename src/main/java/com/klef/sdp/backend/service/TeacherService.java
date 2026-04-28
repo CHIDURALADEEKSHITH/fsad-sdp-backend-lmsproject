@@ -6,6 +6,7 @@ import com.klef.sdp.backend.entity.Project;
 import com.klef.sdp.backend.entity.ProjectGroup;
 import com.klef.sdp.backend.entity.Student;
 import com.klef.sdp.backend.entity.Subject;
+import com.klef.sdp.backend.entity.Submission;
 import com.klef.sdp.backend.entity.Teacher;
 
 public interface TeacherService {
@@ -19,11 +20,21 @@ public interface TeacherService {
 	    public String addProject(Project project, String coursecode, int teacherId);
 	    public List<Project> viewProjectsBySubject(String coursecode);
 	    public boolean deleteProject(int projectId);
-
+	    public String addProjectWithFile(Project project, String coursecode, int teacherId, org.springframework.web.multipart.MultipartFile file);
+        
+	    
+	    public Project getProjectById(int projectId);
 	    
 	    public String createGroup(int projectId, int maxMembers); 
 	    public String assignLeader(int groupId, int studentId); 
 	    public List<ProjectGroup> viewGroupsByProject(int projectId); //can view groupes
 	    public boolean deleteGroup(int groupId);
 	    public List<Student> viewMembersByGroup(int groupId);
+	    
+	    // Submission methods
+	    public List<Submission> viewSubmissionsByProject(int projectId);
+	    public String evaluateSubmission(int submissionId, int marks, String feedback, int teacherId);
+	    public Submission getSubmissionById(int submissionId);
+	    
+	    public byte[] downloadProjectFile(int projectId);
 }
